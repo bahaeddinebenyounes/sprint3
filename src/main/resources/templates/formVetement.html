@@ -15,6 +15,8 @@
 			<div class="card-header" th:if="${mode=='edit'}">Modification des Produits </div>
 			<div class="card-body">
 				<form th:action="@{saveVetement}" method="post">
+					<input hidden name="page" class="form-control" th:value="${page}" />
+					<input hidden name="size" class="form-control" th:value="${size}" />
 					<div class="form-group">
 						<label class="control-label" hidden>ID Vetement :</label>
 						<input type="hidden" name="idVetement" class="form-control" th:value="${vetement.idVetement}" />
@@ -35,6 +37,20 @@
 						<input type="date" name="dateCreation" class="form-control"
 							th:value="${vetement.dateCreation}" />
 						<span th:errors=${vetement.dateCreation} class=" text-danger"> </span>
+					</div>
+					<div class="form-group">
+						<label class="control-label">Type :</label>
+						<select name="type" class="form-control" th:value="${vetement.type.idType}"
+							th:if="${!#strings.isEmpty(vetement.type)}">
+							<option th:each="c:${type}" th:if="${mode=='edit'}" th:value="${c.idType}"
+								th:text="${c.nomType}" th:selected="${ c.idType==vetement.type.idType}">
+							</option>
+						</select>
+						<!-- s'il s'agit d'un ajout (mode==new) ou d'une modification d'un produit ayant une catégorie null -->
+						<select name="type" class="form-control" th:if="${#strings.isEmpty(vetement.type)}">
+							<option th:each="c:${type}" th:value="${c.idType}" th:text="${c.nomType}">
+							</option>
+						</select>
 					</div>
 					<div>
 						<button type="submit" class="btn btn-primary">Valider</button>

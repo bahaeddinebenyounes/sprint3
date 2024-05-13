@@ -22,4 +22,9 @@ public interface VetementService {
 	List<Vetement> findByTypeIdType(Long id);
 	List<Vetement> findByOrderByNomVetementAsc();
 	List<Vetement> trierVetementsNomsPrix();
+	List<Type> getAllTypes();
+	
+	
+	
+	
 }

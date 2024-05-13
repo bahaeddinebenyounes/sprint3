@@ -9,17 +9,21 @@ import org.springframework.stereotype.Service;
 
 import com.baha.vetements.entities.Type;
 import com.baha.vetements.entities.Vetement;
+import com.baha.vetements.repos.TypeRepository;
 import com.baha.vetements.repos.VetementRepository;
 
 @Service
 public class VetementServiceImpl implements VetementService {
 
     private final VetementRepository vetementRepository;
-
+    
+    @Autowired
+    TypeRepository typeRepository;
     @Autowired
     public VetementServiceImpl(VetementRepository vetementRepository) {
         this.vetementRepository = vetementRepository;
     }
+    
 
     @Override
     public Vetement saveVetement(Vetement p) {
@@ -89,5 +93,10 @@ public class VetementServiceImpl implements VetementService {
 	@Override
 	public List<Vetement> trierVetementsNomsPrix() {
 		return vetementRepository.trierVetementsNomsPrix();
+	}
+
+	@Override
+	public List<Type> getAllTypes() {
+		return typeRepository.findAll();
 	}
 }
